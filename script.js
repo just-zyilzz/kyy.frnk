@@ -1,3 +1,40 @@
+// Envelope Interaction
+const envelope = document.getElementById('envelope');
+const openSiteBtn = document.getElementById('openSiteBtn');
+const envelopeOverlay = document.getElementById('envelope-overlay');
+const mainContent = document.getElementById('main-content');
+const bgMusic = document.getElementById('bgMusic');
+
+envelope.addEventListener('click', () => {
+    envelope.classList.add('open');
+});
+
+openSiteBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent bubbling to envelope click
+
+    // Fade out overlay
+    envelopeOverlay.style.opacity = '0';
+
+    // Show main content
+    mainContent.classList.remove('hidden-content');
+    mainContent.classList.add('visible-content');
+
+    // Remove overlay after transition
+    setTimeout(() => {
+        envelopeOverlay.style.display = 'none';
+
+        // Start music
+        if (bgMusic.paused) {
+            bgMusic.play().catch(e => console.log("Audio play failed:", e));
+            document.querySelector('.music-control i').classList.remove('fa-music');
+            document.querySelector('.music-control i').classList.add('fa-pause');
+        }
+
+        // Start confetti
+        startConfetti();
+    }, 1000);
+});
+
 // Countdown Logic
 const birthday = new Date('December 9, 2025 00:00:00').getTime();
 // Adjust year if date has passed
@@ -55,26 +92,18 @@ function startConfetti() {
 
 document.getElementById('celebrateBtn').addEventListener('click', () => {
     startConfetti();
-    // Also play music if not playing
-    const audio = document.getElementById('bgMusic');
-    if (audio.paused) {
-        audio.play().catch(e => console.log("Audio play failed (user interaction needed first):", e));
-        document.querySelector('.music-control i').classList.remove('fa-music');
-        document.querySelector('.music-control i').classList.add('fa-pause');
-    }
 });
 
 // Music Control
 const musicBtn = document.getElementById('musicToggle');
-const audio = document.getElementById('bgMusic');
 
 musicBtn.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play();
+    if (bgMusic.paused) {
+        bgMusic.play();
         musicBtn.querySelector('i').classList.remove('fa-music');
         musicBtn.querySelector('i').classList.add('fa-pause');
     } else {
-        audio.pause();
+        bgMusic.pause();
         musicBtn.querySelector('i').classList.remove('fa-pause');
         musicBtn.querySelector('i').classList.add('fa-music');
     }
