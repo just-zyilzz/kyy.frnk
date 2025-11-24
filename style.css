@@ -416,7 +416,7 @@ body {
 
 /* Button */
 .btn-primary {
-    background: linear-gradient(45deg, #ff007f, #ff69b4);
+    background: linear-gradient(45deg, #ff3e9e, #ff69b4);
     border: none;
     padding: 1rem 3rem;
     border-radius: 50px;
