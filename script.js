@@ -112,3 +112,59 @@ document.querySelectorAll('.gallery-item, .message-card').forEach(el => {
     el.style.transition = 'all 1s cubic-bezier(0.23, 1, 0.32, 1)'; // Liquid ease
     observer.observe(el);
 });
+
+// Typewriter Effect
+function initTypewriter() {
+    const typeWriterElements = document.querySelectorAll('.typewriter-text');
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startTyping(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    typeWriterElements.forEach(el => {
+        el.dataset.text = el.textContent;
+        el.textContent = '';
+        el.style.opacity = '1'; // Ensure it's visible for typing
+        observer.observe(el);
+    });
+}
+
+function startTyping(element) {
+    const text = element.dataset.text;
+    let index = 0;
+    element.innerHTML = '<span class="cursor"></span>'; // Start with cursor
+    const cursor = element.querySelector('.cursor');
+
+    function type() {
+        if (index < text.length) {
+            const char = text.charAt(index);
+            const textNode = document.createTextNode(char);
+            element.insertBefore(textNode, cursor);
+            index++;
+            setTimeout(type, 50); // Typing speed
+        } else {
+            // Keep cursor blinking at the end or remove it?
+            // Let's keep it for a bit then remove, or just keep it on the last one.
+            // For now, just leave it.
+        }
+    }
+
+    type();
+}
+
+// Initialize Typewriter when content is visible
+// We need to wait for the "Open My Heart" button to be clicked and content to be shown.
+// The existing observer handles opacity, but we want to trigger typing.
+// Actually, since the message section is down below, we can just run initTypewriter immediately
+// and the IntersectionObserver will handle the trigger when user scrolls down.
+document.addEventListener('DOMContentLoaded', () => {
+    initTypewriter();
+});
