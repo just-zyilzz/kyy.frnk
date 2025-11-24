@@ -4,13 +4,15 @@ const openSiteBtn = document.getElementById('openSiteBtn');
 const envelopeOverlay = document.getElementById('envelope-overlay');
 const mainContent = document.getElementById('main-content');
 const bgMusic = document.getElementById('bgMusic');
+const mainPlayBtn = document.getElementById('mainPlayBtn');
 
 envelope.addEventListener('click', () => {
     envelope.classList.add('open');
 });
 
 openSiteBtn.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent bubbling to envelope click
+    e.preventDefault(); // Critical fix for reload bug
+    e.stopPropagation();
 
     // Fade out overlay
     envelopeOverlay.style.opacity = '0';
@@ -24,48 +26,31 @@ openSiteBtn.addEventListener('click', (e) => {
         envelopeOverlay.style.display = 'none';
 
         // Start music
-        if (bgMusic.paused) {
-            bgMusic.play().catch(e => console.log("Audio play failed:", e));
-            document.querySelector('.music-control i').classList.remove('fa-music');
-            document.querySelector('.music-control i').classList.add('fa-pause');
-        }
+        toggleMusic();
 
         // Start confetti
         startConfetti();
     }, 1000);
 });
 
-// Countdown Logic
-const birthday = new Date('December 9, 2025 00:00:00').getTime();
-// Adjust year if date has passed
-const now = new Date().getTime();
-const currentYear = new Date().getFullYear();
-let targetDate = new Date(`December 9, ${currentYear} 00:00:00`).getTime();
+// Music Control Logic
+let isPlaying = false;
 
-if (now > targetDate) {
-    targetDate = new Date(`December 9, ${currentYear + 1} 00:00:00`).getTime();
+function toggleMusic() {
+    if (bgMusic.paused) {
+        bgMusic.play().catch(e => console.log("Audio play failed:", e));
+        mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        isPlaying = true;
+    } else {
+        bgMusic.pause();
+        mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+        isPlaying = false;
+    }
 }
 
-const countdown = setInterval(() => {
-    const now = new Date().getTime();
-    const distance = targetDate - now;
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    document.getElementById('days').innerText = String(days).padStart(2, '0');
-    document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-    document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-    document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-
-    if (distance < 0) {
-        clearInterval(countdown);
-        document.getElementById('countdown').innerHTML = "<h2>Happy Birthday Zaskia! 🎉</h2>";
-        startConfetti();
-    }
-}, 1000);
+mainPlayBtn.addEventListener('click', () => {
+    toggleMusic();
+});
 
 // Confetti Effect
 function startConfetti() {
@@ -94,22 +79,7 @@ document.getElementById('celebrateBtn').addEventListener('click', () => {
     startConfetti();
 });
 
-// Music Control
-const musicBtn = document.getElementById('musicToggle');
-
-musicBtn.addEventListener('click', () => {
-    if (bgMusic.paused) {
-        bgMusic.play();
-        musicBtn.querySelector('i').classList.remove('fa-music');
-        musicBtn.querySelector('i').classList.add('fa-pause');
-    } else {
-        bgMusic.pause();
-        musicBtn.querySelector('i').classList.remove('fa-pause');
-        musicBtn.querySelector('i').classList.add('fa-music');
-    }
-});
-
-// Scroll Animation
+// Scroll Animation (Liquid Reveal)
 const observerOptions = {
     threshold: 0.1
 };
@@ -118,14 +88,14 @@ const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.transform = 'translateY(0) scale(1)';
         }
     });
 }, observerOptions);
 
 document.querySelectorAll('.gallery-item, .message-card').forEach(el => {
     el.style.opacity = '0';
-    el.style.transform = 'translateY(50px)';
-    el.style.transition = 'all 0.8s ease-out';
+    el.style.transform = 'translateY(50px) scale(0.95)';
+    el.style.transition = 'all 1s cubic-bezier(0.23, 1, 0.32, 1)'; // Liquid ease
     observer.observe(el);
 });
