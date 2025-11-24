@@ -114,20 +114,138 @@
         </div>
       </div>
     </section>
+    <!DOCTYPE html>
+    <html lang="id">
 
-    <footer>
-      <p>Made with <i class="fas fa-heart"></i> for Zaskia Farradila</p>
-    </footer>
-  </div>
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Happy Birthday Zaskia Farradila</title>
+      <link rel="stylesheet" href="style.css">
+      <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    </head>
 
-  <!-- Audio Player (Hidden) -->
-  <audio id="bgMusic" loop>
-    <!-- User needs to add audio.mp3 -->
-    <!-- <source src="audio.mp3" type="audio/mpeg"> -->
-  </audio>
+    <body>
+      <!-- Envelope Overlay -->
+      <div id="envelope-overlay">
+        <div class="envelope-container" id="envelope">
+          <div class="envelope-body">
+            <div class="envelope-flap"></div>
+            <div class="envelope-pocket"></div>
+            <div class="letter" id="letter">
+              <div class="letter-content-inner">
+                <p>Happy Birthday Zaskia! 🎂</p>
+                <p>Jujurly, aku bingung mau ngomong apa but here we go.</p>
+                <p>Happy level up day sayang! 🎉 Semoga makin slay, makin glowing, and all the good vibes only.</p>
+                <p>Don't forget to be happy terus yaa. Love you to the moon and back! 🚀❤️</p>
+                <button id="openSiteBtn" class="btn-love" type="button">
+                  <i class="fas fa-heart"></i> Open My Heart
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="click-hint">Click the envelope! 💌</div>
+        </div>
+      </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="script.js"></script>
-</body>
+      <!-- Main Content (Initially Hidden) -->
+      <div id="main-content" class="hidden-content">
+        <div class="background-elements">
+          <div class="blob blob-1"></div>
+          <div class="blob blob-2"></div>
+        </div>
 
-</html>
+        <header class="hero">
+          <div class="glass-card hero-content">
+            <h1 class="animate-text">Happy Birthday</h1>
+            <h2 class="animate-text delay-1">Zaskia Farradila</h2>
+
+            <!-- Music Player Card -->
+            <div class="music-player animate-text delay-2">
+              <div class="album-art">
+                <i class="fas fa-music"></i>
+              </div>
+              <div class="track-info">
+                <div class="track-name">White Ferrari</div>
+                <div class="artist-name">Frank Ocean</div>
+                <div class="progress-bar">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+              <div class="player-controls">
+                <i class="fas fa-backward"></i>
+                <div class="play-pause-btn" id="mainPlayBtn">
+                  <i class="fas fa-play"></i>
+                </div>
+                <i class="fas fa-forward"></i>
+              </div>
+            </div>
+
+            <button id="celebrateBtn" class="btn-primary animate-text delay-3">
+              <i class="fas fa-gift"></i> Rayakan!
+            </button>
+          </div>
+        </header>
+
+        <section class="gallery">
+          <h2 class="section-title">Kenangan Indah</h2>
+          <div class="gallery-grid">
+            <!-- Placeholder images - User needs to replace these -->
+            <div class="gallery-item"><img
+                src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=500&auto=format&fit=crop&q=60"
+                alt="Memory 1"></div>
+            <div class="gallery-item"><img
+                src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=500&auto=format&fit=crop&q=60"
+                alt="Memory 2"></div>
+            <div class="gallery-item"><img
+                src="https://images.unsplash.com/photo-1490750967868-58cb75063ed4?w=500&auto=format&fit=crop&q=60"
+                alt="Memory 3"></div>
+            <div class="gallery-item"><img
+                src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=500&auto=format&fit=crop&q=60"
+                alt="Memory 4"></div>
+            <div class="gallery-item"><img
+                src="https://images.unsplash.com/photo-1531123414780-f74242c2b052?w=500&auto=format&fit=crop&q=60"
+                alt="Memory 5"></div>
+            <div class="gallery-item"><img
+                src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&auto=format&fit=crop&q=60"
+                alt="Memory 6"></div>
+            <div class="gallery-item"><img
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop&q=60"
+                alt="Memory 7"></div>
+          </div>
+        </section>
+
+        <section class="message">
+          <div class="glass-card message-card">
+            <h2 class="section-title">Untuk Kamu</h2>
+            <div class="letter-content">
+              <p>Hai Zaskia,</p>
+              <p>Selamat ulang tahun! Di hari spesialmu ini, aku cuma mau bilang betapa beruntungnya aku punya kamu.
+                Semoga
+                hari ini seindah senyumanmu dan setenang hatimu.</p>
+              <p>Terima kasih sudah jadi bagian terbaik dalam hidupku. Semoga semua impianmu tercapai.</p>
+              <p class="signature">With Love,<br>Your Boyfriend</p>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <p>Made with <i class="fas fa-heart"></i> for Zaskia Farradila</p>
+        </footer>
+      </div>
+
+      <!-- Audio Player (Hidden) -->
+      <audio id="bgMusic" loop>
+        <!-- Replace with your own White Ferrari audio file -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <!-- To use your own file, upload audio.mp3 and change src to: src="audio.mp3" -->
+      </audio>
+
+      <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+      <script src="script.js"></script>
+    </body>
+
+    </html>
