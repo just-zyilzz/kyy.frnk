@@ -30,7 +30,10 @@ openSiteBtn.addEventListener('click', (e) => {
 
         // Start confetti
         startConfetti();
-    }, 1000);
+
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 800); // Slightly faster than 1000ms to match new CSS transition
 });
 
 // Music Control Logic
