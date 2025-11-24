@@ -478,47 +478,9 @@ body {
     transition: transform 0.5s;
 }
 
-.gallery-item:hover img {
-    transform: scale(1.1);
-}
-
-/* Message */
-.message {
-    padding: 6rem 2rem;
-    display: flex;
-    justify-content: center;
-}
-
-.message-card {
-    max-width: 800px;
-    width: 100%;
-    text-align: center;
-}
-
-.letter-content {
-    font-size: 1.1rem;
-    line-height: 2;
-    color: var(--text-main);
-}
-
-.letter-content p {
-    margin-bottom: 2rem;
-}
-
-.signature {
-    font-family: 'Dancing Script', cursive;
-    font-size: 2rem;
-    margin-top: 3rem;
-    color: var(--primary-pink);
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 3rem;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+color: var(--text-muted);
+font-size: 0.9rem;
+border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 footer i {
