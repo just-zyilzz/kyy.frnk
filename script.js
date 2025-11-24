@@ -115,7 +115,7 @@ document.querySelectorAll('.gallery-item, .message-card').forEach(el => {
 
 // Typewriter Effect
 function initTypewriter() {
-    const typeWriterElements = document.querySelectorAll('.typewriter-text');
+    const typeWriterElements = Array.from(document.querySelectorAll('.typewriter-text'));
     const observerOptions = {
         threshold: 0.1
     };
@@ -123,48 +123,53 @@ function initTypewriter() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                startTyping(entry.target);
-                observer.unobserve(entry.target);
+                // Start typing the first element, then chain the rest
+                typeSequence(typeWriterElements);
+                observer.disconnect(); // Stop observing once triggered
             }
         });
     }, observerOptions);
 
-    typeWriterElements.forEach(el => {
-        el.dataset.text = el.textContent;
-        el.textContent = '';
-        el.style.opacity = '1'; // Ensure it's visible for typing
-        observer.observe(el);
-    });
+    if (typeWriterElements.length > 0) {
+        // Prepare elements
+        typeWriterElements.forEach(el => {
+            el.dataset.text = el.textContent;
+            el.textContent = '';
+            el.style.opacity = '1';
+        });
+        // Observe only the first element to trigger the whole sequence
+        observer.observe(typeWriterElements[0]);
+    }
 }
 
-function startTyping(element) {
+function typeSequence(elements, index = 0) {
+    if (index >= elements.length) return;
+
+    const element = elements[index];
     const text = element.dataset.text;
-    let index = 0;
-    element.innerHTML = '<span class="cursor"></span>'; // Start with cursor
+    element.innerHTML = '<span class="cursor"></span>';
     const cursor = element.querySelector('.cursor');
+    let charIndex = 0;
 
     function type() {
-        if (index < text.length) {
-            const char = text.charAt(index);
+        if (charIndex < text.length) {
+            const char = text.charAt(charIndex);
             const textNode = document.createTextNode(char);
             element.insertBefore(textNode, cursor);
-            index++;
+            charIndex++;
             setTimeout(type, 50); // Typing speed
         } else {
-            // Keep cursor blinking at the end or remove it?
-            // Let's keep it for a bit then remove, or just keep it on the last one.
-            // For now, just leave it.
+            // Remove cursor from current element
+            if (cursor) cursor.remove();
+
+            // Start next element
+            typeSequence(elements, index + 1);
         }
     }
 
     type();
 }
 
-// Initialize Typewriter when content is visible
-// We need to wait for the "Open My Heart" button to be clicked and content to be shown.
-// The existing observer handles opacity, but we want to trigger typing.
-// Actually, since the message section is down below, we can just run initTypewriter immediately
-// and the IntersectionObserver will handle the trigger when user scrolls down.
 document.addEventListener('DOMContentLoaded', () => {
     initTypewriter();
 });
