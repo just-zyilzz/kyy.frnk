@@ -28,21 +28,6 @@ body {
 }
 
 .envelope-pocket {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-left: 150px solid var(--primary-pink);
-    border-right: 150px solid var(--primary-pink);
-    color: var(--primary-pink);
-    font-weight: 600;
-    animation: bounce 2s infinite;
-}
-
-/* Open Animation Classes */
-.envelope-container.open .envelope-flap {
-    transform: rotateX(180deg);
     z-index: 0;
 }
 

@@ -38,19 +38,32 @@ let isPlaying = false;
 
 function toggleMusic() {
     if (bgMusic.paused) {
-        bgMusic.play().catch(e => console.log("Audio play failed:", e));
-        mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
-        isPlaying = true;
+        bgMusic.play()
+            .then(() => {
+                console.log("✅ Music playing: White Ferrari - Frank Ocean");
+                if (mainPlayBtn) {
+                    mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+                isPlaying = true;
+            })
+            .catch(e => {
+                console.log("⚠️ Auto-play blocked. Click play button to start music.", e);
+                isPlaying = false;
+            });
     } else {
         bgMusic.pause();
-        mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+        if (mainPlayBtn) {
+            mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
         isPlaying = false;
     }
 }
 
-mainPlayBtn.addEventListener('click', () => {
-    toggleMusic();
-});
+if (mainPlayBtn) {
+    mainPlayBtn.addEventListener('click', () => {
+        toggleMusic();
+    });
+}
 
 // Confetti Effect
 function startConfetti() {
