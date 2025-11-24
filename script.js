@@ -37,32 +37,15 @@ openSiteBtn.addEventListener('click', (e) => {
 let isPlaying = false;
 
 function toggleMusic() {
-    if (bgMusic.paused) {
-        bgMusic.play()
-            .then(() => {
-                console.log("✅ Music playing: White Ferrari - Frank Ocean");
-                if (mainPlayBtn) {
-                    mainPlayBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                }
-                isPlaying = true;
-            })
-            .catch(e => {
-                console.log("⚠️ Auto-play blocked. Click play button to start music.", e);
-                isPlaying = false;
-            });
-    } else {
-        bgMusic.pause();
-        if (mainPlayBtn) {
-            mainPlayBtn.innerHTML = '<i class="fas fa-play"></i>';
-        }
-        isPlaying = false;
-    }
-}
-
-if (mainPlayBtn) {
-    mainPlayBtn.addEventListener('click', () => {
-        toggleMusic();
-    });
+    bgMusic.play()
+        .then(() => {
+            console.log("✅ Music playing: White Ferrari - Frank Ocean");
+            isPlaying = true;
+        })
+        .catch(e => {
+            console.log("⚠️ Auto-play blocked. User interaction needed.", e);
+            isPlaying = false;
+        });
 }
 
 // Confetti Effect
