@@ -35,61 +35,6 @@ body {
     height: 0;
     border-left: 150px solid var(--primary-pink);
     border-right: 150px solid var(--primary-pink);
-    border-bottom: 100px solid #ff9ecf;
-    border-top: 100px solid transparent;
-    border-radius: 0 0 10px 10px;
-    z-index: 2;
-}
-
-.letter {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 260px;
-    height: 180px;
-    background: #fff0f5;
-    padding: 20px;
-    border-radius: 5px;
-    transition: transform 0.6s, bottom 0.6s, z-index 0.1s;
-    z-index: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.letter-content-inner {
-    font-size: 0.8rem;
-    color: #333;
-}
-
-.letter-content-inner p {
-    margin-bottom: 8px;
-}
-
-.btn-love {
-    background: var(--neon-pink);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
-    margin-top: 10px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: transform 0.2s;
-    box-shadow: 0 4px 15px rgba(255, 0, 127, 0.4);
-}
-
-.btn-love:hover {
-    transform: scale(1.1);
-}
-
-.click-hint {
-    text-align: center;
-    margin-top: 20px;
     color: var(--primary-pink);
     font-weight: 600;
     animation: bounce 2s infinite;
