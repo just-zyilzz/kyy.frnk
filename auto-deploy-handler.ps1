@@ -7,7 +7,8 @@ param(
 try {
     $scriptDir = Split-Path -Path $MyInvocation.MyCommand.Path -Parent
     Set-Location $scriptDir
-} catch {
+}
+catch {
     Write-Host "Unable to change directory to script location: $_" -ForegroundColor Red
 }
 
@@ -52,7 +53,8 @@ $commitOutput = git commit -m $commitMsg 2>&1
 if ($LASTEXITCODE -ne 0) {
     Write-Host "[handler] Commit did not create changes or failed:" -ForegroundColor Yellow
     Write-Host $commitOutput -ForegroundColor Yellow
-} else {
+}
+else {
     Write-Host "[handler] Commit created: $commitMsg" -ForegroundColor Green
 }
 
@@ -60,7 +62,8 @@ Write-Host "[handler] Pushing to origin/$branch..." -ForegroundColor Cyan
 $pushOutput = git push origin $branch 2>&1
 if ($LASTEXITCODE -eq 0) {
     Write-Host "[handler] Push successful." -ForegroundColor Green
-} else {
+}
+else {
     Write-Host "[handler] Push failed (exit $LASTEXITCODE)" -ForegroundColor Yellow
     Write-Host $pushOutput -ForegroundColor Yellow
     if ($pushOutput -match 'rejected' -or $pushOutput -match 'non-fast-forward') {
@@ -71,7 +74,8 @@ if ($LASTEXITCODE -eq 0) {
             if ($LASTEXITCODE -eq 0) { Write-Host "[handler] Push succeeded after sync." -ForegroundColor Green }
             else { Write-Host "[handler] Push still failed after sync; resolve manually." -ForegroundColor Red }
         }
-    } elseif ($pushOutput -match 'Authentication failed' -or $pushOutput -match 'could not read Username') {
+    }
+    elseif ($pushOutput -match 'Authentication failed' -or $pushOutput -match 'could not read Username') {
         Write-Host "[handler] Authentication failed. Configure credential helper or use a PAT." -ForegroundColor Red
     }
 }
