@@ -445,30 +445,6 @@ body {
     text-align: center;
     font-family: 'Dancing Script', cursive;
     font-size: 3.5rem;
-    color: var(--text-main);
-    margin-bottom: 4rem;
-    text-shadow: 0 0 10px rgba(255, 105, 180, 0.3);
-}
-
-.gallery-grid {
-    display: flex;
-    color: #333;
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.strip-footer i {
-    color: #ff007f;
-    font-size: 1rem;
-}
-
-/* Message */
-.message {
-    padding: 6rem 2rem;
-    display: flex;
     justify-content: center;
 }
 
