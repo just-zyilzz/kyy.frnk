@@ -288,7 +288,8 @@ body {
 }
 
 .polaroid-frame {
-    background: #ffffff;
+    background: #faf9f5;
+    /* Ivory/cream color - putih tulang */
     padding: 15px 15px 60px 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     max-width: 300px;
@@ -997,7 +998,8 @@ footer i.fas.fa-heart {
 .live-frame {
     transform: rotate(-2deg);
     transition: transform 0.3s ease;
-    max-width: 350px; /* Slightly larger for emphasis */
+    max-width: 350px;
+    /* Slightly larger for emphasis */
 }
 
 .live-frame:hover {
@@ -1008,7 +1010,8 @@ footer i.fas.fa-heart {
 .live-photo-wrapper {
     position: relative;
     width: 100%;
-    height: 350px; /* Square aspect ratio */
+    height: 350px;
+    /* Square aspect ratio */
     overflow: hidden;
     background: #000;
     cursor: pointer;
@@ -1032,7 +1035,8 @@ footer i.fas.fa-heart {
     justify-content: center;
     align-items: center;
     transition: opacity 0.3s ease;
-    pointer-events: none; /* Let clicks pass through to wrapper */
+    pointer-events: none;
+    /* Let clicks pass through to wrapper */
 }
 
 .live-icon-container {
@@ -1078,7 +1082,8 @@ footer i.fas.fa-heart {
     display: inline-block;
     width: 8px;
     height: 8px;
-    background: #ff007f; /* Live indicator color */
+    background: #ff007f;
+    /* Live indicator color */
     border-radius: 50%;
     margin-right: 5px;
 }
@@ -1089,7 +1094,18 @@ footer i.fas.fa-heart {
 }
 
 @keyframes pulse {
-    0% { transform: scale(1); opacity: 0.9; }
-    50% { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); opacity: 0.9; }
+    0% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.9;
+    }
 }
