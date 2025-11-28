@@ -1,3 +1,108 @@
+// ===== RELATIONSHIP QUESTION INTERACTION =====
+const relationshipOverlay = document.getElementById('relationship-overlay');
+const sweetMessageOverlay = document.getElementById('sweet-message-overlay');
+const seriousOverlay = document.getElementById('serious-overlay');
+const btnYes = document.getElementById('btnYes');
+const btnNo = document.getElementById('btnNo');
+const btnContinue = document.getElementById('btnContinue');
+const btnSeriousYes = document.getElementById('btnSeriousYes');
+const btnSeriousNo = document.getElementById('btnSeriousNo');
+
+let noClickCount = 0;
+const maxNoAttempts = 3;
+
+// Move "ngga" button randomly
+function moveNoButton() {
+    const container = document.querySelector('.buttons-container');
+    const containerRect = container.getBoundingClientRect();
+    const buttonRect = btnNo.getBoundingClientRect();
+
+    const maxX = containerRect.width - buttonRect.width - 40;
+    const maxY = containerRect.height - buttonRect.height - 40;
+
+    const randomX = Math.random() * maxX - (maxX / 2);
+    const randomY = Math.random() * maxY - (maxY / 2);
+
+    btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+    btnNo.style.transition = 'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+}
+
+// "iyaaa" button - show sweet message
+btnYes.addEventListener('click', () => {
+    if (typeof confetti !== 'undefined') {
+        confetti({ particleCount: 150, spread: 100, origin: { y: 0.6 } });
+    }
+    relationshipOverlay.style.opacity = '0';
+    setTimeout(() => {
+        relationshipOverlay.classList.add('hidden');
+        sweetMessageOverlay.classList.remove('hidden');
+    }, 800);
+});
+
+// "ngga" button hover - move the button
+btnNo.addEventListener('mouseenter', () => {
+    noClickCount++;
+    if (noClickCount >= maxNoAttempts) {
+        relationshipOverlay.style.opacity = '0';
+        setTimeout(() => {
+            relationshipOverlay.classList.add('hidden');
+            seriousOverlay.classList.remove('hidden');
+        }, 800);
+    } else {
+        moveNoButton();
+    }
+});
+
+// Mobile touch support
+btnNo.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    noClickCount++;
+    if (noClickCount >= maxNoAttempts) {
+        relationshipOverlay.style.opacity = '0';
+        setTimeout(() => {
+            relationshipOverlay.classList.add('hidden');
+            seriousOverlay.classList.remove('hidden');
+        }, 800);
+    } else {
+        moveNoButton();
+    }
+}, { passive: false });
+
+// Continue to envelope
+btnContinue.addEventListener('click', () => {
+    sweetMessageOverlay.style.opacity = '0';
+    setTimeout(() => {
+        sweetMessageOverlay.classList.add('hidden');
+        document.getElementById('envelope-overlay').classList.remove('hidden');
+    }, 800);
+});
+
+// Serious "becanda" button
+btnSeriousNo.addEventListener('click', () => {
+    if (typeof confetti !== 'undefined') {
+        confetti({ particleCount: 200, spread: 120, origin: { y: 0.6 } });
+    }
+    seriousOverlay.style.opacity = '0';
+    setTimeout(() => {
+        seriousOverlay.classList.add('hidden');
+        sweetMessageOverlay.classList.remove('hidden');
+    }, 800);
+});
+
+// Serious "iyaa serius" button - skip to gallery
+btnSeriousYes.addEventListener('click', () => {
+    seriousOverlay.style.opacity = '0';
+    setTimeout(() => {
+        seriousOverlay.classList.add('hidden');
+        const mainContent = document.getElementById('main-content');
+        mainContent.classList.remove('hidden-content');
+        mainContent.classList.add('visible-content');
+        if (typeof toggleMusic === 'function') toggleMusic();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (typeof revealWishCards === 'function') revealWishCards();
+    }, 800);
+});
+
 // Envelope Interaction
 const envelope = document.getElementById('envelope');
 const openSiteBtn = document.getElementById('openSiteBtn');
