@@ -424,25 +424,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (liveWrapper && liveVideo) {
         let wasBgMusicPlaying = false;
+        let isPlaying = false;
+
+        // Preload video
+        liveVideo.load();
 
         const playLivePhoto = () => {
+            if (isPlaying) return;
+
             // Check if main music is playing
             if (!bgMusic.paused) {
                 wasBgMusicPlaying = true;
                 bgMusic.pause(); // Pause main music
             }
 
+            // Try to play with audio first, fallback to muted if fails
             liveVideo.muted = false;
             liveVideo.currentTime = 0;
-            liveVideo.play().then(() => {
-                liveWrapper.classList.add('is-playing');
-            }).catch(e => console.log("Video play failed:", e));
+
+            const playPromise = liveVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    isPlaying = true;
+                    liveWrapper.classList.add('is-playing');
+                }).catch(e => {
+                    // Fallback: try playing muted (for iOS/mobile restrictions)
+                    console.log("Playing with audio failed, trying muted:", e);
+                    liveVideo.muted = true;
+                    liveVideo.play().then(() => {
+                        isPlaying = true;
+                        liveWrapper.classList.add('is-playing');
+                    }).catch(err => {
+                        console.log("Video play failed completely:", err);
+                        isPlaying = false;
+                    });
+                });
+            }
         };
 
         const stopLivePhoto = () => {
+            if (!isPlaying) return;
+
             liveVideo.pause();
             liveVideo.currentTime = 0;
             liveWrapper.classList.remove('is-playing');
+            isPlaying = false;
 
             // Resume main music if it was playing
             if (wasBgMusicPlaying) {
@@ -451,16 +477,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        // Mouse Events
+        // Mouse Events (Desktop)
         liveWrapper.addEventListener('mousedown', playLivePhoto);
         liveWrapper.addEventListener('mouseup', stopLivePhoto);
         liveWrapper.addEventListener('mouseleave', stopLivePhoto);
 
-        // Touch Events (Mobile)
+        // Touch Events (Mobile) - with proper passive handling
         liveWrapper.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevent scrolling while holding
             playLivePhoto();
-        });
-        liveWrapper.addEventListener('touchend', stopLivePhoto);
+        }, { passive: true });
+
+        liveWrapper.addEventListener('touchend', (e) => {
+            stopLivePhoto();
+        }, { passive: true });
+
+        liveWrapper.addEventListener('touchcancel', (e) => {
+            stopLivePhoto();
+        }, { passive: true });
     }
 });
