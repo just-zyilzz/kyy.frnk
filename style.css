@@ -981,3 +981,115 @@ footer i.fas.fa-heart {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ===== LIVE MEMORY ===== */
+.live-memory-section {
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.live-memory-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.live-frame {
+    transform: rotate(-2deg);
+    transition: transform 0.3s ease;
+    max-width: 350px; /* Slightly larger for emphasis */
+}
+
+.live-frame:hover {
+    transform: rotate(0deg) scale(1.02);
+    z-index: 10;
+}
+
+.live-photo-wrapper {
+    position: relative;
+    width: 100%;
+    height: 350px; /* Square aspect ratio */
+    overflow: hidden;
+    background: #000;
+    cursor: pointer;
+}
+
+.live-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.live-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Let clicks pass through to wrapper */
+}
+
+.live-icon-container {
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px 25px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.live-icon-container i {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.live-icon-container span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.live-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+.live-badge::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #ff007f; /* Live indicator color */
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+/* State when playing */
+.live-photo-wrapper.is-playing .live-overlay {
+    opacity: 0;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.9; }
+}

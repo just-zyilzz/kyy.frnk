@@ -310,3 +310,52 @@ window.addEventListener('scroll', () => {
 });
 
 console.log("✨ Birthday website loaded! All features ready.");
+
+// Live Photo Interaction
+document.addEventListener('DOMContentLoaded', () => {
+    const liveWrapper = document.getElementById('livePhotoWrapper');
+    const liveVideo = document.getElementById('liveVideo');
+    const bgMusic = document.getElementById('bgMusic'); // Main background music
+
+    if (liveWrapper && liveVideo) {
+        let wasBgMusicPlaying = false;
+
+        const playLivePhoto = () => {
+            // Check if main music is playing
+            if (!bgMusic.paused) {
+                wasBgMusicPlaying = true;
+                bgMusic.pause(); // Pause main music
+            }
+
+            liveVideo.muted = false;
+            liveVideo.currentTime = 0;
+            liveVideo.play().then(() => {
+                liveWrapper.classList.add('is-playing');
+            }).catch(e => console.log("Video play failed:", e));
+        };
+
+        const stopLivePhoto = () => {
+            liveVideo.pause();
+            liveVideo.currentTime = 0;
+            liveWrapper.classList.remove('is-playing');
+
+            // Resume main music if it was playing
+            if (wasBgMusicPlaying) {
+                bgMusic.play().catch(e => console.log("Resume bg music failed:", e));
+                wasBgMusicPlaying = false;
+            }
+        };
+
+        // Mouse Events
+        liveWrapper.addEventListener('mousedown', playLivePhoto);
+        liveWrapper.addEventListener('mouseup', stopLivePhoto);
+        liveWrapper.addEventListener('mouseleave', stopLivePhoto);
+
+        // Touch Events (Mobile)
+        liveWrapper.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevent scrolling while holding
+            playLivePhoto();
+        });
+        liveWrapper.addEventListener('touchend', stopLivePhoto);
+    }
+});
